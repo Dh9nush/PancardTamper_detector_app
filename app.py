@@ -25,10 +25,13 @@ def Check():
         tampered1=tampered1.save('static/tampered.png')
         tampered1=cv2.imread('static/tampered.png')
         tampered_gray=cv2.cvtColor(tampered1,cv2.COLOR_BGR2GRAY)
-        score=structural_similarity(original_gray,tampered_gray,full=True)
+        
 
         
-        return str(score[0])
+        (score,diff)=structural_similarity(original_gray,tampered_gray,full=True)
+        value=(score*100).astype(int8)
+        
+        return render_template('home.html',value='SSIM value is ' + str(value)+'%'+'is Similar')
     
 
 
